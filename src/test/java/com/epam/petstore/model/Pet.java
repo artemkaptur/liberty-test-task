@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Pet {
 
     @JsonProperty("id")
-    private int id;
+    private long id;
     @JsonProperty("category")
     private PetCategory category;
     @JsonProperty("name")
@@ -43,11 +43,11 @@ public class Pet {
         setStatus(builder.status);
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -93,7 +93,7 @@ public class Pet {
 
     public static final class Builder {
 
-        private int id;
+        private long id;
         private PetCategory category;
         private String name;
         private List<String> photoUrls;
