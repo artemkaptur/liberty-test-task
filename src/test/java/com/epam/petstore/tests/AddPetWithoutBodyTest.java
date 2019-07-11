@@ -9,15 +9,15 @@ import static org.testng.Assert.assertTrue;
 public class AddPetWithoutBodyTest extends BaseTest{
 
     @Test
-    public void addEmptyPetTest() {
+    public void addPetWithoutBodyTest() {
 
         Response addNewPetToTheStoreResponse = addNewPetToTheStore();
         int statusCode = addNewPetToTheStoreResponse.statusCode();
         String responseMessage = addNewPetToTheStoreResponse.body().jsonPath().getString("message");
 
-        assertEquals(statusCode, 500, String.format("Status is not 500, but - %s", statusCode));
-        assertTrue(addNewPetToTheStoreResponse.time() < 3000, "Too long response time");
-        assertEquals(responseMessage, "something bad happened");
+        assertEquals(statusCode, serverErrorStatusCode, String.format("Status is not 500, but - %s", statusCode));
+        assertTrue(addNewPetToTheStoreResponse.time() < maxResponseTime, "Too long response time");
+        assertEquals(responseMessage, serverErrorMessage);
     }
 
 }

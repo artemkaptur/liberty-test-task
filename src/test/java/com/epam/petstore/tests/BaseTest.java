@@ -1,28 +1,29 @@
 package com.epam.petstore.tests;
 
 import com.epam.petstore.model.Pet;
-import io.restassured.builder.RequestSpecBuilder;
+import com.epam.petstore.spring.AppConfig;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import org.testng.annotations.BeforeClass;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.filter.log.LogDetail.ALL;
-import static io.restassured.http.ContentType.JSON;
 
-public abstract class BaseTest {
+@ContextConfiguration(classes = AppConfig.class)
+public abstract class BaseTest extends AbstractTestNGSpringContextTests {
 
+    @Autowired
     protected RequestSpecification requestSpecification;
-
-    @BeforeClass
-    public void beforeClass() {
-        requestSpecification = new RequestSpecBuilder()
-                .setBaseUri("http://petstore.swagger.io")
-                .setBasePath("/v2/pet")
-                .setContentType(JSON)
-                .addHeader("api_key", "sa88gg17cb12")
-                .log(ALL).build();
-    }
+    @Value("${success.status.code}")
+    protected int successStatusCode;
+    @Value("${server.error.status.code}")
+    protected int serverErrorStatusCode;
+    @Value("${server.error.message}")
+    protected String serverErrorMessage;
+    @Value("${success.max.responsetime}")
+    protected int maxResponseTime;
 
     protected Response addNewPetToTheStore(Pet pet) {
         return given(requestSpecification)
