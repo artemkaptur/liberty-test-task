@@ -31,6 +31,13 @@ public abstract class BaseTest {
                 .then().extract().response();
     }
 
+    protected Response addNewPetToTheStore(String requestBody) {
+        return given(requestSpecification)
+                .body(requestBody)
+                .post()
+                .then().extract().response();
+    }
+
     protected Response addNewPetToTheStore() {
         return given(requestSpecification)
                 .post()
