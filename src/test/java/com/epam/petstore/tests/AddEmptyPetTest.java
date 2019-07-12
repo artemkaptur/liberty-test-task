@@ -6,16 +6,13 @@ import io.qameta.allure.Severity;
 import io.restassured.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import static com.epam.petstore.constants.AssertionErrorMessages.STATUS_CODE_IS_NOT_SUCCESSFUL;
 import static com.epam.petstore.constants.AssertionErrorMessages.TO_LONG_RESPONSE_TIME;
 import static com.epam.petstore.constants.AssertionErrorMessages.WRONG_RESPONSE_CONTENT_TYPE;
 import static io.qameta.allure.SeverityLevel.MINOR;
 import static java.lang.String.format;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
-import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertNull;
 
 public class AddEmptyPetTest extends BaseTest {
 
@@ -32,16 +29,18 @@ public class AddEmptyPetTest extends BaseTest {
         Pet addedPet = addNewPetToTheStoreResponse.as(Pet.class);
         String responseContentType = addNewPetToTheStoreResponse.contentType();
 
-        assertEquals(statusCode, successStatusCode, format(STATUS_CODE_IS_NOT_SUCCESSFUL, statusCode));
-        assertEquals(responseContentType, applicationJsonContentType,
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(statusCode, successStatusCode, format(STATUS_CODE_IS_NOT_SUCCESSFUL, statusCode));
+        softAssert.assertEquals(responseContentType, applicationJsonContentType,
                 format(WRONG_RESPONSE_CONTENT_TYPE, applicationJsonContentType, responseContentType));
-        assertTrue(addNewPetToTheStoreResponse.time() < maxResponseTime, TO_LONG_RESPONSE_TIME);
-        assertNotNull(addedPet.getId());
-        assertNull(addedPet.getCategory());
-        assertNull(addedPet.getName());
-        assertNull(addedPet.getPhotoUrls());
-        assertNull(addedPet.getTags());
-        assertNull(addedPet.getStatus());
+        softAssert.assertTrue(addNewPetToTheStoreResponse.time() < maxResponseTime, TO_LONG_RESPONSE_TIME);
+        softAssert.assertNotNull(addedPet.getId());
+        softAssert.assertNull(addedPet.getCategory());
+        softAssert.assertNull(addedPet.getName());
+        softAssert.assertNull(addedPet.getPhotoUrls());
+        softAssert.assertNull(addedPet.getTags());
+        softAssert.assertNull(addedPet.getStatus());
+        softAssert.assertAll();
     }
 
 }
