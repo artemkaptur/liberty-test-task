@@ -31,23 +31,23 @@ public class AppConfig {
 
     @Bean(name = "petToBeAdded")
     public Pet petToBeAdded() {
-        return new Pet.Builder()
-                .setId(Integer.valueOf(randomNumeric(6)))
-                .setPetCategory(new PetCategory(1, "Cat"))
-                .setName("John")
-                .setPhotoUrls(new ArrayList<String>() {
+        return Pet.builder()
+                .id(Integer.valueOf(randomNumeric(6)))
+                .category(new PetCategory(1, "Cat"))
+                .name("John")
+                .photoUrls(new ArrayList<String>() {
                     {
                         add("https://www.myowesomecats.com/white");
                         add("https://www.myowesomecats.com/grey");
                     }
                 })
-                .setTags(new ArrayList<Tag>() {
+                .tags(new ArrayList<Tag>() {
                     {
                         add(new Tag(1, "tag1"));
                         add(new Tag(2, "tag2"));
                     }
                 })
-                .setStatus(VACCINATED).build();
+                .status(VACCINATED).build();
     }
 
     @Bean(name = "emptyPet")
