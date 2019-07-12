@@ -7,6 +7,9 @@ import io.restassured.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.Test;
 
+import static com.epam.petstore.constants.AssertionErrorMessages.STATUS_CODE_IS_NOT_SUCCESSFUL;
+import static com.epam.petstore.constants.AssertionErrorMessages.TO_LONG_RESPONSE_TIME;
+import static com.epam.petstore.constants.AssertionErrorMessages.WRONG_RESPONSE_CONTENT_TYPE;
 import static io.qameta.allure.SeverityLevel.MINOR;
 import static java.lang.String.format;
 import static org.testng.Assert.assertEquals;
@@ -29,10 +32,10 @@ public class AddEmptyPetTest extends BaseTest {
         Pet addedPet = addNewPetToTheStoreResponse.as(Pet.class);
         String responseContentType = addNewPetToTheStoreResponse.contentType();
 
-        assertEquals(statusCode, successStatusCode, format("Status is not 200, but - %s", statusCode));
+        assertEquals(statusCode, successStatusCode, format(STATUS_CODE_IS_NOT_SUCCESSFUL, statusCode));
         assertEquals(responseContentType, applicationJsonContentType,
-                format("Response content type is not %s, but - %s", applicationJsonContentType, responseContentType));
-        assertTrue(addNewPetToTheStoreResponse.time() < maxResponseTime, "Too long response time");
+                format(WRONG_RESPONSE_CONTENT_TYPE, applicationJsonContentType, responseContentType));
+        assertTrue(addNewPetToTheStoreResponse.time() < maxResponseTime, TO_LONG_RESPONSE_TIME);
         assertNotNull(addedPet.getId());
         assertNull(addedPet.getCategory());
         assertNull(addedPet.getName());

@@ -5,6 +5,9 @@ import io.qameta.allure.Severity;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
+import static com.epam.petstore.constants.AssertionErrorMessages.STATUS_CODE_IS_NOT_ERRORED;
+import static com.epam.petstore.constants.AssertionErrorMessages.TO_LONG_RESPONSE_TIME;
+import static com.epam.petstore.constants.AssertionErrorMessages.WRONG_RESPONSE_CONTENT_TYPE;
 import static io.qameta.allure.SeverityLevel.CRITICAL;
 import static java.lang.String.format;
 import static org.testng.Assert.assertEquals;
@@ -22,10 +25,10 @@ public class AddPetWithoutBodyTest extends BaseTest{
         String responseMessage = addNewPetToTheStoreResponse.body().jsonPath().getString("message");
         String responseContentType = addNewPetToTheStoreResponse.contentType();
 
-        assertEquals(statusCode, serverErrorStatusCode, format("Status is not 500, but - %s", statusCode));
+        assertEquals(statusCode, serverErrorStatusCode, format(STATUS_CODE_IS_NOT_ERRORED, statusCode));
         assertEquals(responseContentType, applicationJsonContentType,
-                format("Response content type is not %s, but - %s", applicationJsonContentType, responseContentType));
-        assertTrue(addNewPetToTheStoreResponse.time() < maxResponseTime, "Too long response time");
+                format(WRONG_RESPONSE_CONTENT_TYPE, applicationJsonContentType, responseContentType));
+        assertTrue(addNewPetToTheStoreResponse.time() < maxResponseTime, TO_LONG_RESPONSE_TIME);
         assertEquals(responseMessage, serverErrorMessage);
     }
 
