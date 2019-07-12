@@ -40,20 +40,26 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
         return given(requestSpecification)
                 .body(pet)
                 .post()
-                .then().extract().response();
+                .then()
+                .log().all()
+                .extract().response();
     }
 
     protected Response addNewPetToTheStore(String requestBody) {
         return given(requestSpecification)
                 .body(requestBody)
                 .post()
-                .then().extract().response();
+                .then()
+                .log().all()
+                .extract().response();
     }
 
     protected Response addNewPetToTheStore() {
         return given(requestSpecification)
                 .post()
-                .then().extract().response();
+                .then()
+                .log().all()
+                .extract().response();
     }
 
 }
