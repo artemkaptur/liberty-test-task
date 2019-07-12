@@ -30,8 +30,9 @@ public class AddPetWithInvalidBodyTest extends BaseTest {
     @Description("Checking that it's impossible to create pet with invalid request body")
     public void addPetWithInvalidBodyTest() throws JsonProcessingException {
 
+        int randomNumberForSpoilRequestBody = 13;
         Response addNewPetToTheStoreResponse = addNewPetToTheStore(objectMapper.writeValueAsString(petToBeAdded)
-                .substring(13));
+                .substring(randomNumberForSpoilRequestBody));
         int statusCode = addNewPetToTheStoreResponse.statusCode();
         String responseMessage = addNewPetToTheStoreResponse.body().jsonPath().getString("message");
         String responseContentType = addNewPetToTheStoreResponse.contentType();
