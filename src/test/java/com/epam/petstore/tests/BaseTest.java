@@ -1,13 +1,17 @@
 package com.epam.petstore.tests;
 
+import com.epam.petstore.allure.AllureRestAssured;
 import com.epam.petstore.model.Pet;
 import com.epam.petstore.spring.AppConfig;
+import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+
+import javax.annotation.PostConstruct;
 
 import static io.restassured.RestAssured.given;
 
@@ -26,6 +30,11 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
     protected String applicationJsonContentType;
     @Value("${success.max.responsetime}")
     protected int maxResponseTime;
+
+    @PostConstruct
+    private void setAllureRestAssuredFilter() {
+        RestAssured.replaceFiltersWith(new AllureRestAssured());
+    }
 
     protected Response addNewPetToTheStore(Pet pet) {
         return given(requestSpecification)

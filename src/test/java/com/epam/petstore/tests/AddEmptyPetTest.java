@@ -1,10 +1,13 @@
 package com.epam.petstore.tests;
 
 import com.epam.petstore.model.Pet;
+import io.qameta.allure.Description;
+import io.qameta.allure.Severity;
 import io.restassured.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.Test;
 
+import static io.qameta.allure.SeverityLevel.MINOR;
 import static java.lang.String.format;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -17,6 +20,8 @@ public class AddEmptyPetTest extends BaseTest {
     private Pet emptyPet;
 
     @Test
+    @Severity(MINOR)
+    @Description("Checking that it will be created empty pet with id, if we send request with empty body")
     public void addEmptyPetTest() {
 
         Response addNewPetToTheStoreResponse = addNewPetToTheStore(emptyPet);

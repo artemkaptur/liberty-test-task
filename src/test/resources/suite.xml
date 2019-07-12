@@ -3,14 +3,12 @@
 <suite name="Petstore API tests suite" verbose="1" parallel="classes" thread-count="4">
 
     <test name="Petstore API tests">
-
         <classes>
             <class name="com.epam.petstore.tests.AddNewPetToTheStoreTest"></class>
             <class name="com.epam.petstore.tests.AddEmptyPetTest"></class>
             <class name="com.epam.petstore.tests.AddPetWithoutBodyTest"></class>
             <class name="com.epam.petstore.tests.AddPetWithInvalidBodyTest"></class>
         </classes>
-
     </test>
 
 </suite>
