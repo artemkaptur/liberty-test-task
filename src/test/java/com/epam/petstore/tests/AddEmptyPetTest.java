@@ -5,6 +5,7 @@ import io.restassured.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.Test;
 
+import static java.lang.String.format;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.assertNotNull;
@@ -21,8 +22,11 @@ public class AddEmptyPetTest extends BaseTest {
         Response addNewPetToTheStoreResponse = addNewPetToTheStore(emptyPet);
         int statusCode = addNewPetToTheStoreResponse.statusCode();
         Pet addedPet = addNewPetToTheStoreResponse.as(Pet.class);
+        String responseContentType = addNewPetToTheStoreResponse.contentType();
 
-        assertEquals(statusCode, successStatusCode, String.format("Status is not 200, but - %s", statusCode));
+        assertEquals(statusCode, successStatusCode, format("Status is not 200, but - %s", statusCode));
+        assertEquals(responseContentType, applicationJsonContentType,
+                format("Response content type is not %s, but - %s", applicationJsonContentType, responseContentType));
         assertTrue(addNewPetToTheStoreResponse.time() < maxResponseTime, "Too long response time");
         assertNotNull(addedPet.getId());
         assertNull(addedPet.getCategory());

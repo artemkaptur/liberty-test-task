@@ -12,6 +12,8 @@
 /bin/
 /target/
 /out/
+*.allure/
+*allure-results/
 
 ### Compiled class file ###
 *.class

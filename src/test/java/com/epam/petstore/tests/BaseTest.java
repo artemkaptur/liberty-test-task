@@ -22,6 +22,8 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
     protected int serverErrorStatusCode;
     @Value("${server.error.message}")
     protected String serverErrorMessage;
+    @Value("${application.json.contenttype}")
+    protected String applicationJsonContentType;
     @Value("${success.max.responsetime}")
     protected int maxResponseTime;
 

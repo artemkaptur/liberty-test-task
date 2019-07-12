@@ -66,6 +66,7 @@ public class AppConfig {
                 .setBaseUri("http://petstore.swagger.io")
                 .setBasePath("/v2/pet")
                 .setContentType(JSON)
+                .setAccept(JSON)
                 .addHeader("api_key", "sa88gg17cb12")
                 .log(ALL).build();
     }
